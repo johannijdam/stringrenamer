@@ -2,7 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$di = new RecursiveDirectoryIterator('./');
+//fill the below fields with your values
+$searchfor = "";
+$replacewith = "";
+$parentfolder = "./";
+//change nothing from here
+
+$di = new RecursiveDirectoryIterator($parentfolder);
 foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
     //open file
 
@@ -12,7 +18,7 @@ foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
         $filecontents = file_get_contents($filename);
 
         //replace string
-        $newcontents = str_replace("https://munki.wdka.hro.nl/artwork/","http://openmunki.wdka.hro.nl/artwork/", $filecontents);
+        $newcontents = str_replace($searchfor,$replacewith, $filecontents);
 
         //write to file
         file_put_contents($filename, $newcontents);
